@@ -2,6 +2,7 @@ services:
   - type: web
     name: my-portfolio
     env: python
+    plan: free # <--- Explicitly set to free
     buildCommand: "./build.sh"
     startCommand: "gunicorn my_portfolio.wsgi:application"
     envVars:
@@ -15,7 +16,10 @@ services:
         fromDatabase:
           name: portfolio-db
           property: connectionString
+      - key: ALLOWED_HOSTS
+        value: "*"
 
 databases:
   - name: portfolio-db
-    plan: free
+    plan: free # <--- Explicitly set to free
+    region: ohio 
