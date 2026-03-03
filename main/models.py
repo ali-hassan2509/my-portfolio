@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
+from cloudinary.models import CloudinaryField # Add this import
+
 
 class About(models.Model):
     # Basic Info
@@ -11,7 +13,7 @@ class About(models.Model):
     tagline = models.CharField(max_length=255, blank=True, null=True)
     
     # Images & Files
-    image = models.ImageField(upload_to="about/", blank=True, null=True)
+    image = CloudinaryField('image') 
     about_image = models.ImageField(upload_to="about/", blank=True, null=True)
     resume = models.FileField(upload_to="resumes/", blank=True, null=True)
     
@@ -71,7 +73,7 @@ class Skill(models.Model):
 class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    image = models.ImageField(upload_to="projects/")
+    image = CloudinaryField('project_image') 
     date = models.DateField(blank=True, null=True) # Added for the year display
     tech_stack = models.CharField(max_length=255, help_text="Enter skills separated by commas (e.g. Django, React, TailWind)", blank=True)
     link_live = models.URLField(blank=True, null=True, help_text="Live project URL")
